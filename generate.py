@@ -46,9 +46,15 @@ def get_all_videos_html_list() -> str:
         [get_single_video_html(url) for url in videos_url_list]
     )
 
+def get_embed_url(url: str) -> str:
+    return url.replace(
+        "https://www.youtube.com/watch?v=",
+        "https://www.youtube.com/embed/"
+    )
+
 def get_single_video_html(url: str) -> str:
     html = get_html_from_file("templates/single_video.html")
-    html = html.replace("{{ URL }}", url)
+    html = html.replace("{{ URL }}", get_embed_url(url))
     html = html.replace("{{ NAME }}", url)
     return html
 
